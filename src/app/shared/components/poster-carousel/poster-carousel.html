@@ -1,0 +1,38 @@
+<div
+  class="wrap"
+  (pointerenter)="onPointer($event, true)"
+  (pointerleave)="onPointer($event, false)"
+  (focusin)="pause(true)"
+  (focusout)="pause(false)"
+>
+  <div
+    class="viewport"
+    #viewport
+    role="region"
+    aria-label="Producciones donde se usó nuestro equipamiento"
+  >
+    <ul class="rail" #rail>
+      @for (s of sets(); track s) {
+        @for (it of items(); track $index) {
+          <li class="poster" [attr.aria-hidden]="s > 0 ? 'true' : null">
+            <div class="art">
+              @if (it.posterUrl) {
+                <img
+                  [src]="poster(it.posterUrl)"
+                  [alt]="'Póster de ' + it.name"
+                  loading="lazy"
+                  width="170"
+                  height="255"
+                />
+              } @else {
+                <span class="ph">{{ it.name }}</span>
+              }
+            </div>
+            <p class="name">{{ it.name }}</p>
+            <p class="genre">{{ it.genre }}</p>
+          </li>
+        }
+      }
+    </ul>
+  </div>
+</div>

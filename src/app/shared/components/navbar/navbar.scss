@@ -1,0 +1,124 @@
+:host {
+  display: block;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.nav {
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: 1.25rem;
+  background: var(--c-black);
+  border-bottom: 2px solid var(--c-gold);
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+  font-family: 'Henny Penny', system-ui;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.35rem;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  img {
+    border-radius: 50%;
+    height: 56px;
+    width: 56px;
+  }
+}
+.links {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 1.8rem;
+  a {
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 600;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.3rem 0;
+    border-bottom: 2px solid transparent;
+    transition:
+      color 0.2s,
+      border-color 0.2s;
+    &:hover {
+      color: var(--c-mustard-light);
+    }
+    &.active {
+      color: var(--c-gold);
+      border-bottom-color: var(--c-gold);
+    }
+  }
+}
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.icon-btn {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: 0;
+  color: var(--c-white);
+  border-radius: 50%;
+  transition: color 0.2s;
+  &:hover {
+    color: var(--c-gold);
+  }
+}
+.badge {
+  position: absolute;
+  top: 2px;
+  right: 0;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  display: grid;
+  place-items: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: var(--c-gold);
+  color: var(--c-black);
+  border-radius: 10px;
+}
+
+@media (max-width: 900px) {
+  .nav {
+    height: auto;
+    min-height: var(--nav-h);
+    flex-wrap: wrap;
+    padding-block: 0.4rem 0;
+    row-gap: 0;
+  }
+  .links {
+    position: static;
+    transform: none;
+    order: 3;
+    width: 100%;
+    gap: 1.4rem;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 0.2rem 0 0.3rem;
+    a {
+      font-size: 1.1rem;
+    }
+  }
+}
+@media (max-width: 480px) {
+  .brand span {
+    display: none;
+  }
+}

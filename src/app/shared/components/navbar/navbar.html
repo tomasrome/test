@@ -1,0 +1,20 @@
+<header class="nav">
+  <a class="brand" routerLink="/" aria-label="El Gato Tuerto, ir al inicio">
+    <img [src]="site.logo" alt="" width="44" height="44" />
+    <span>El Gato Tuerto</span>
+  </a>
+
+  <nav class="links" aria-label="Principal">
+    @for (l of links; track l.path) {
+      <a [routerLink]="l.path" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: l.exact }">{{ l.label }}</a>
+    }
+  </nav>
+
+  <div class="actions">
+    <a class="icon-btn" [href]="site.instagram" target="_blank" rel="noopener" aria-label="Instagram"><app-icon name="instagram" /></a>
+    <button class="icon-btn cart-btn" type="button" (click)="cart.toggleDrawer()" aria-label="Abrir carrito de consulta">
+      <app-icon name="cart" />
+      @if (cart.itemCount() > 0) { <span class="badge">{{ cart.itemCount() }}</span> }
+    </button>
+  </div>
+</header>

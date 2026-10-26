@@ -1,0 +1,5 @@
+<header>
+  @if (level() === 1) { <h1>{{ title() }}</h1> } @else { <h2>{{ title() }}</h2> }
+  <hr class="gold-line" />
+  @if (subtitle()) { <p class="sub">{{ subtitle() }}</p> }
+</header>

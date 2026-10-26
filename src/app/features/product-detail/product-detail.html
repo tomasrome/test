@@ -1,0 +1,50 @@
+<div class="container section">
+  @if (!state().done) {
+    <app-spinner />
+  } @else if (state().product; as p) {
+    <nav class="crumbs" aria-label="Ubicación">
+      <a routerLink="/catalogo">Catálogo</a> <span aria-hidden="true">/</span>
+      <a routerLink="/catalogo" [queryParams]="{ categoria: categorySlug() }">{{ p.category }}</a> <span aria-hidden="true">/</span>
+      <span>{{ p.name }}</span>
+    </nav>
+
+    <div class="layout">
+      <div class="media">
+        @if (p.imageUrl) { <img [src]="big(p.imageUrl)" [alt]="p.name" width="800" height="600" fetchpriority="high" /> }
+        @else { <div class="ph"><app-icon name="clapper" [size]="64" /></div> }
+        @if (p.discount > 0) { <span class="promo">{{ p.discount }}% off</span> }
+      </div>
+
+      <div class="info">
+        <h1>{{ p.name }}</h1>
+        <hr class="gold-line" />
+        @for (para of description().paragraphs; track $index) { <p>{{ para }}</p> }
+        @if (description().bullets.length) {
+          <ul>@for (b of description().bullets; track $index) { <li>{{ b }}</li> }</ul>
+        }
+        @if (p.stock === 0) { <p class="stock">Sin stock — se consulta igual</p> }
+
+        <button type="button" class="btn add" [class.added]="added()" (click)="add(p)">
+          @if (added()) { <app-icon name="check" [size]="20" /> Agregado } @else { <app-icon name="plus" [size]="20" /> Agregar a la consulta }
+        </button>
+      </div>
+    </div>
+
+    @if (p.stillUrl) {
+      <section class="used" aria-labelledby="used-title">
+        <h2 id="used-title">Lo usamos en</h2>
+        <figure>
+          <img [src]="big(p.stillUrl)" [alt]="'Fotograma de ' + (p.production || 'la producción')" loading="lazy" width="800" height="450" />
+          @if (p.production) { <figcaption class="sub">{{ p.production }}</figcaption> }
+        </figure>
+      </section>
+    }
+  } @else {
+    <div class="nf">
+      <h1>No encontramos ese equipo</h1>
+      <hr class="gold-line" />
+      <p>Puede que ya no esté disponible o que el link haya cambiado.</p>
+      <a class="btn" routerLink="/catalogo">Volver al catálogo</a>
+    </div>
+  }
+</div>

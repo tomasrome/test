@@ -1,0 +1,7 @@
+.layout { display: grid; grid-template-columns: 1fr 1.1fr; gap: 2rem; align-items: stretch; }
+.cards { display: grid; gap: .8rem; align-content: start; }
+.card { display: flex; gap: 1rem; align-items: center; padding: 1rem 1.2rem; background: var(--c-slate-2); border: 1px solid rgba(255,255,255,.1); border-left: 4px solid var(--c-gold); border-radius: var(--radius); text-decoration: none; word-break: break-word; strong { display: block; font-family: var(--font-display); font-style: italic; font-size: 1.2rem; text-transform: uppercase; color: var(--c-mustard-light); } }
+a.card:hover { border-color: var(--c-gold); }
+.script { margin-top: 1rem; padding: 1.25rem; background: var(--c-brown); border-radius: var(--radius); h2 { font-size: 1.7rem; } }
+.map { width: 100%; min-height: 380px; height: 100%; border: 2px solid var(--c-gold); border-radius: var(--radius); }
+@media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }

@@ -1,0 +1,78 @@
+<div class="container section">
+  @if (loading()) {
+    <app-spinner />
+  } @else if (selected(); as cat) {
+    <nav class="crumbs" aria-label="Ubicación">
+      <a routerLink="/catalogo">Catálogo</a> <span aria-hidden="true">/</span>
+      <span>{{ cat.name }}</span>
+    </nav>
+
+    <div class="bar">
+      @if (prev(); as p) {
+        <a
+          class="arrow"
+          routerLink="/catalogo"
+          [queryParams]="{ categoria: p.slug }"
+          [attr.aria-label]="'Categoría anterior: ' + p.name"
+        >
+          <app-icon name="arrow-left" [size]="26" /><span>{{ p.name }}</span>
+        </a>
+      } @else {
+        <span></span>
+      }
+
+      <app-section-heading [title]="cat.name" [level]="1" />
+
+      @if (next(); as n) {
+        <a
+          class="arrow arrow--next"
+          routerLink="/catalogo"
+          [queryParams]="{ categoria: n.slug }"
+          [attr.aria-label]="'Categoría siguiente: ' + n.name"
+        >
+          <span>{{ n.name }}</span
+          ><app-icon name="arrow-right" [size]="26" />
+        </a>
+      } @else {
+        <span></span>
+      }
+    </div>
+
+    <div class="grid">
+      @for (p of visibleProducts(); track p.id) {
+        <app-product-card [product]="p" />
+      }
+    </div>
+  } @else {
+    <app-section-heading title="Catálogo" [level]="1" />
+    <!-- subtitle="Elegí una categoría para ver los equipos disponibles para alquilar." -->
+
+    @if (categories().length) {
+      <div class="cats">
+        @for (c of categories(); track c.slug) {
+          <a class="cat" routerLink="/catalogo" [queryParams]="{ categoria: c.slug }">
+            <div class="cat__media">
+              @if (c.cover) {
+                <img [src]="cover(c.cover)" alt="" loading="lazy" width="600" height="450" />
+              } @else {
+                <app-icon name="clapper" [size]="48" />
+              }
+            </div>
+            <div class="cat__info">
+              <h2>{{ c.name }}</h2>
+              <p class="sub">{{ c.count }} {{ c.count === 1 ? 'equipo' : 'equipos' }}</p>
+            </div>
+          </a>
+        }
+      </div>
+    } @else {
+      <p class="empty">
+        Por ahora no hay equipos para mostrar. Escribinos y te contamos qué tenemos disponible.
+      </p>
+    }
+
+    <a class="btn btn--ghost dl" [href]="pdf" download>
+      <app-icon name="download" [size]="20" /> Descargar catálogo
+    </a>
+  }
+</div>

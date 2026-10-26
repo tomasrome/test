@@ -1,0 +1,96 @@
+<section class="hero">
+  <div class="container hero__grid">
+    <div class="orb">
+      <div class="circle">
+        @if (playVideo()) {
+          <video
+            [src]="hero().src"
+            [poster]="hero().poster"
+            [attr.aria-label]="hero().label"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="metadata"
+          ></video>
+        } @else {
+          <img
+            [src]="hero().poster"
+            [alt]="hero().label"
+            width="520"
+            height="520"
+            fetchpriority="high"
+          />
+        }
+        @if (ready() && !playVideo()) {
+          <button type="button" class="play" (click)="start()" aria-label="Reproducir video">
+            <app-icon name="play" [size]="34" />
+          </button>
+        }
+      </div>
+      <svg class="dash dash--tr" viewBox="0 0 60 56" aria-hidden="true">
+        <path d="M10 44L24 10M30 50L48 18M44 54L58 36" />
+      </svg>
+      <svg class="dash dash--bl" viewBox="0 0 60 66" aria-hidden="true">
+        <path d="M4 12l30 8M2 30l26 12M10 46l16 14" />
+      </svg>
+    </div>
+
+    <div class="hero__text">
+      <hr class="gold-line" />
+      <h1>{{ site.name }}</h1>
+      <p class="hero__sub">Equipamiento medico acondicionado para rodaje.</p>
+      <p class="hero__lead">Monitores, camillas y más. Todo lo que necesitás para tu producción.</p>
+
+      <ul class="feats">
+        @for (f of features; track f.label) {
+          <li>
+            <app-icon [name]="f.icon" [size]="38" /><span>{{ f.label }}</span>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="team">
+  <div class="container">
+    <!--     <p class="eyebrow">Conocé al equipo</p> -->
+    <h2>Tres mentes, ...</h2>
+
+    <div class="team__grid">
+      @for (m of team; track $index) {
+        <a
+          class="card reveal"
+          appInView
+          [style.--i]="$index"
+          routerLink="/nosotros"
+          [attr.aria-label]="'Conocer más: ' + m.cardTitle"
+        >
+          <div class="bg">
+            @if (m.photo) {
+              <img [src]="m.photo" [alt]="m.cardTitle" loading="lazy" width="420" height="420" />
+            } @else {
+              <img class="bg__logo" [src]="site.logo" alt="" width="160" height="160" />
+            }
+          </div>
+          <div class="cap">
+            <div>
+              <h3>{{ m.cardTitle }}</h3>
+              <p>{{ m.cardText }}</p>
+            </div>
+            <span class="go" aria-hidden="true"><app-icon name="arrow-right" [size]="18" /></span>
+          </div>
+        </a>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="prod">
+  <div class="container">
+    <!-- <p class="eyebrow">Producciones</p> -->
+    <h2>Algunas producciones que ya nos eligieron.</h2>
+  </div>
+  <app-poster-carousel [items]="productions" />
+</section>

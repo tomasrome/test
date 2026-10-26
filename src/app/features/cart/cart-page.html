@@ -1,0 +1,71 @@
+<div class="container section">
+  <app-section-heading title="Tu consulta" [level]="1" />
+  <!-- subtitle="Elegí los equipos y enviá la consulta. Te respondemos para coordinar fechas." -->
+
+  @if (cart.cartItems().length) {
+    <div class="layout">
+      <ul class="items">
+        @for (item of cart.cartItems(); track item.product.id) {
+          <li class="item">
+            @if (item.product.imageUrl) {
+              <img [src]="thumb(item.product.imageUrl)" alt="" width="88" height="88" />
+            } @else {
+              <div class="ph" aria-hidden="true"><app-icon name="clapper" [size]="30" /></div>
+            }
+            <div class="meta">
+              <a [routerLink]="['/catalogo', item.product.slug]">{{ item.product.name }}</a>
+              <span class="sub">{{ item.product.category }}</span>
+            </div>
+            <div class="qty" role="group" [attr.aria-label]="'Cantidad de ' + item.product.name">
+              <button
+                type="button"
+                (click)="cart.updateQuantity(item.product.id, item.quantity - 1)"
+                aria-label="Menos"
+              >
+                <app-icon name="minus" [size]="16" />
+              </button>
+              <span>{{ item.quantity }}</span>
+              <button
+                type="button"
+                (click)="cart.updateQuantity(item.product.id, item.quantity + 1)"
+                aria-label="Más"
+              >
+                <app-icon name="plus" [size]="16" />
+              </button>
+            </div>
+            <button
+              type="button"
+              class="rm"
+              (click)="cart.removeItem(item.product.id)"
+              [attr.aria-label]="'Quitar ' + item.product.name"
+            >
+              <app-icon name="trash" [size]="20" />
+            </button>
+          </li>
+        }
+      </ul>
+
+      <aside class="summary">
+        <h2>Resumen</h2>
+        <p>
+          {{ cart.itemCount() }} {{ cart.itemCount() === 1 ? 'equipo' : 'equipos' }} en tu consulta.
+        </p>
+        <p class="note">Esta web no procesa pagos: un asesor te contacta para coordinar.</p>
+        <button type="button" class="btn btn--wa" (click)="sendWhatsApp()">
+          <app-icon name="whatsapp" [size]="22" /> Realizar consulta por WhatsApp
+        </button>
+        @if (isMobile()) {
+          <button type="button" class="btn btn--ghost" (click)="sendEmail()">
+            <app-icon name="mail" [size]="22" /> Enviar por email
+          </button>
+        }
+        <button type="button" class="clear" (click)="cart.clear()">Vaciar carrito</button>
+      </aside>
+    </div>
+  } @else {
+    <div class="empty">
+      <p>Todavía no agregaste equipos a tu consulta.</p>
+      <a class="btn" routerLink="/catalogo">Ver catálogo</a>
+    </div>
+  }
+</div>

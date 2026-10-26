@@ -1,0 +1,20 @@
+<footer class="footer">
+  <div class="container grid">
+    <div>
+      <img [src]="site.logo" alt="" width="64" height="64" />
+      <p class="tag">{{ site.tagline }}</p>
+    </div>
+    <nav aria-label="Secundario">
+      <a routerLink="/catalogo">Catálogo</a>
+      <a routerLink="/nosotros">Nosotros</a>
+      <a routerLink="/contacto">Contacto</a>
+      <a routerLink="/carrito">Carrito de consulta</a>
+    </nav>
+    <div class="contact">
+      <a [href]="waLink" target="_blank" rel="noopener"><app-icon name="whatsapp" [size]="20" /> {{ site.whatsappDisplay }}</a>
+      <a [href]="'mailto:' + site.email"><app-icon name="mail" [size]="20" /> {{ site.email }}</a>
+      <a [href]="site.instagram" target="_blank" rel="noopener"><app-icon name="instagram" [size]="20" /> {{ site.instagramHandle }}</a>
+    </div>
+  </div>
+  <p class="copy">© {{ year }} {{ site.name }}</p>
+</footer>

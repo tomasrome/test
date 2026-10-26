@@ -1,0 +1,11 @@
+{
+  "rewrites": [{ "source": "/sitemap.xml", "destination": "/api/sitemap" }],
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "www.gatotuerto.com.ar" }],
+      "destination": "https://gatotuerto.com.ar/$1",
+      "permanent": true
+    }
+  ]
+}

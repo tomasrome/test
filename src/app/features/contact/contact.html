@@ -1,0 +1,43 @@
+<div class="container section">
+  <app-section-heading
+    title="Contacto"
+    [level]="1"
+  /><!-- subtitle="Contanos qué necesitás para tu rodaje." -->
+
+  <div class="layout">
+    <div class="cards">
+      <a class="card" [href]="waLink" target="_blank" rel="noopener"
+        ><app-icon name="whatsapp" /><span
+          ><strong>WhatsApp</strong>{{ site.whatsappDisplay }}</span
+        ></a
+      >
+      <a class="card" [href]="'mailto:' + site.email"
+        ><app-icon name="mail" /><span><strong>Email</strong>{{ site.email }}</span></a
+      >
+      <a class="card" [href]="site.instagram" target="_blank" rel="noopener"
+        ><app-icon name="instagram" /><span
+          ><strong>Instagram</strong>{{ site.instagramHandle }}</span
+        ></a
+      >
+      <div class="card">
+        <app-icon name="pin" /><span><strong>Dirección</strong>{{ site.address }}</span>
+      </div>
+
+      <!--  <div class="script">
+        <h2>¿Tenés un guión con escenas médicas?</h2>
+        <p>Escribinos y lo revisamos con vos.</p>
+        <a class="btn btn--wa" [href]="scriptLink" target="_blank" rel="noopener"
+          ><app-icon name="whatsapp" [size]="22" /> Consultar por mi guión</a
+        >
+      </div> -->
+    </div>
+
+    <iframe
+      class="map"
+      title="Mapa de El Gato Tuerto"
+      [src]="mapUrl"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+    ></iframe>
+  </div>
+</div>

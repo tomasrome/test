@@ -1,0 +1,7 @@
+.footer { background: var(--c-black); border-top: 2px solid var(--c-gold); padding-block: 2.5rem 1rem; margin-top: auto; }
+.grid { display: grid; grid-template-columns: 1.2fr 1fr 1.4fr; gap: 2rem; }
+.tag { margin-top: .75rem; font-size: .95rem; opacity: .8; }
+nav, .contact { display: flex; flex-direction: column; gap: .6rem; }
+a { text-decoration: none; display: inline-flex; align-items: center; gap: .5rem; &:hover { color: var(--c-gold); } }
+.copy { text-align: center; margin: 2rem auto 0; font-size: .85rem; opacity: .6; max-width: none; }
+@media (max-width: 700px) { .grid { grid-template-columns: 1fr; } }
