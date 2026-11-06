@@ -6,15 +6,37 @@
 
   <nav class="links" aria-label="Principal">
     @for (l of links; track l.path) {
-      <a [routerLink]="l.path" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: l.exact }">{{ l.label }}</a>
+      <a
+        [routerLink]="l.path"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: l.exact }"
+        >{{ l.label }}</a
+      >
     }
   </nav>
 
   <div class="actions">
-    <a class="icon-btn" [href]="site.instagram" target="_blank" rel="noopener" aria-label="Instagram"><app-icon name="instagram" /></a>
-    <button class="icon-btn cart-btn" type="button" (click)="cart.toggleDrawer()" aria-label="Abrir carrito de consulta">
+    <a
+      class="icon-btn"
+      [href]="site.instagram"
+      target="_blank"
+      rel="noopener"
+      aria-label="Instagram"
+      ><app-icon name="instagram"
+    /></a>
+    <a class="icon-btn" [href]="site.instagram" target="_blank" rel="noopener" aria-label="Facebook"
+      ><i class="fa-brands fa-facebook"></i
+    ></a>
+    <button
+      class="icon-btn cart-btn"
+      type="button"
+      (click)="cart.toggleDrawer()"
+      aria-label="Abrir carrito de consulta"
+    >
       <app-icon name="cart" />
-      @if (cart.itemCount() > 0) { <span class="badge">{{ cart.itemCount() }}</span> }
+      @if (cart.itemCount() > 0) {
+        <span class="badge">{{ cart.itemCount() }}</span>
+      }
     </button>
   </div>
 </header>

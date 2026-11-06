@@ -30,15 +30,6 @@
       </div>
     </div>
 
-    @if (p.stillUrl) {
-      <section class="used" aria-labelledby="used-title">
-        <h2 id="used-title">Lo usamos en</h2>
-        <figure>
-          <img [src]="big(p.stillUrl)" [alt]="'Fotograma de ' + (p.production || 'la producción')" loading="lazy" width="800" height="450" />
-          @if (p.production) { <figcaption class="sub">{{ p.production }}</figcaption> }
-        </figure>
-      </section>
-    }
   } @else {
     <div class="nf">
       <h1>No encontramos ese equipo</h1>

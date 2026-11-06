@@ -1,20 +1,37 @@
 @if (cart.isDrawerOpen()) {
   <div class="backdrop" (click)="cart.closeDrawer()"></div>
 }
-<aside class="drawer" [class.open]="cart.isDrawerOpen()" [attr.aria-hidden]="!cart.isDrawerOpen()" aria-label="Carrito de consulta">
+<aside
+  class="drawer"
+  [class.open]="cart.isDrawerOpen()"
+  [attr.aria-hidden]="!cart.isDrawerOpen()"
+  aria-label="Carrito de consulta"
+>
   <header>
     <h2>Tu consulta</h2>
-    <button class="close" type="button" (click)="cart.closeDrawer()" aria-label="Cerrar carrito"><app-icon name="close" /></button>
+    <button class="close" type="button" (click)="cart.closeDrawer()" aria-label="Cerrar carrito">
+      <app-icon name="close" />
+    </button>
   </header>
 
   <div class="body">
     @for (item of cart.cartItems(); track item.product.id) {
       <div class="row">
-        @if (item.product.imageUrl) { <img [src]="thumb(item.product.imageUrl)" alt="" width="56" height="56" /> }
-        @else { <div class="ph" aria-hidden="true"></div> }
+        @if (item.product.imageUrl) {
+          <img [src]="thumb(item.product.imageUrl)" alt="" width="56" height="56" />
+        } @else {
+          <div class="ph" aria-hidden="true"></div>
+        }
         <span class="name">{{ item.product.name }}</span>
         <span class="qty">x{{ item.quantity }}</span>
-        <button type="button" class="rm" (click)="cart.removeItem(item.product.id)" [attr.aria-label]="'Quitar ' + item.product.name"><app-icon name="trash" [size]="18" /></button>
+        <button
+          type="button"
+          class="rm"
+          (click)="cart.removeItem(item.product.id)"
+          [attr.aria-label]="'Quitar ' + item.product.name"
+        >
+          <app-icon name="trash" [size]="18" />
+        </button>
       </div>
     } @empty {
       <p class="empty">Todavía no agregaste equipos a tu consulta.</p>
@@ -22,6 +39,8 @@
   </div>
 
   @if (cart.itemCount() > 0) {
-    <footer><button class="btn" type="button" (click)="goToCart()">Realizar consulta</button></footer>
+    <footer>
+      <button class="btn" type="button" (click)="goToCart()">Consultar</button>
+    </footer>
   }
 </aside>

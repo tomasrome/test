@@ -1,46 +1,30 @@
-<div class="container section">
-  <app-section-heading
-    title="Nosotros"
-    [level]="1"
-  /><!-- subtitle="Un equipo que entiende de medicina y de cine." -->
+<app-page-hero title="Nuestro equipo" subtitle="Un equipo que entiende de medicina y de cine." />
 
-  <div class="blocks">
+<section class="team">
+  <div class="container blocks">
     @for (m of team; track $index) {
-      <article class="block reveal" appInView [class.block--alt]="$index % 2 === 1">
+      <!-- el 1.º bloque ya se ve al cargar (animación por tiempo); los demás aparecen al hacer scroll -->
+      <article
+        class="block"
+        appInView
+        [class.rise]="$index === 0"
+        [class.reveal]="$index > 0"
+        [class.block--alt]="$index % 2 === 1"
+        [style.--i]="$index === 0 ? 2 : 0"
+      >
         <div class="photo">
           @if (m.photo) {
             <img [src]="m.photo" [alt]="m.name" loading="lazy" width="420" height="420" />
           } @else {
-            <span aria-hidden="true">{{ m.name.charAt(0) }}</span>
+            <img class="photo__ph" [src]="site.logo" alt="" width="120" height="120" />
           }
         </div>
         <div class="text">
+          <p class="eyebrow">{{ m.role }}</p>
           <h2>{{ m.name }}</h2>
-          <p class="sub">{{ m.role }}</p>
-          <hr class="gold-line" />
           <p>{{ m.bio }}</p>
         </div>
       </article>
     }
   </div>
-</div>
-
-<!-- <section id="consultoria" class="section section--light consulting">
-  <div class="container">
-    <app-section-heading
-      title="Consultoría de escenas"
-      subtitle="No solo alquilamos equipos: también te ayudamos con la escena."
-    />
-    <p>
-      [COMPLETAR] Como contamos con una licenciada en artes audiovisuales, entendemos cómo se cuenta
-      una escena médica en cámara. A diferencia de quienes solo alquilan equipos, podemos asesorar
-      el guión: qué se ve, qué se dice y cómo se hace en la realidad.
-    </p>
-    <div class="cta">
-      <a class="btn btn--wa" [href]="consultingLink" target="_blank" rel="noopener"
-        ><app-icon name="whatsapp" [size]="22" /> Consultar por mi guión</a
-      >
-      <a class="btn btn--dark" routerLink="/contacto">Ver contacto</a>
-    </div>
-  </div>
-</section> -->
+</section>

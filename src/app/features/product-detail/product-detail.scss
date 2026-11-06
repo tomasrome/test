@@ -6,11 +6,5 @@
 ul { padding-left: 1.2rem; margin: 0 0 1rem; li { margin-bottom: .3rem; } }
 .stock { color: var(--c-mustard-light); font-weight: 600; }
 .add.added { background: var(--c-ok); border-color: var(--c-ok); color: #fff; }
-.used {
-  margin-top: 3.5rem;
-  figure { margin: 0; max-width: 800px; padding: 22px 0; background: var(--c-black); border-block: 2px solid var(--c-gold); }
-  img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
-  figcaption { padding: .8rem 1rem 0; }
-}
 .nf { text-align: center; padding-block: 3rem; hr { margin-inline: auto; } p { margin-inline: auto; } }
 @media (max-width: 900px) { .layout { grid-template-columns: 1fr; gap: 1.5rem; } }

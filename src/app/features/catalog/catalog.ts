@@ -12,17 +12,19 @@ import { Icon } from '../../shared/components/icon/icon';
 import { ProductCard } from '../../shared/components/product-card/product-card';
 import { SectionHeading } from '../../shared/components/section-heading/section-heading';
 import { Spinner } from '../../shared/components/spinner/spinner';
+import { InView } from '../../shared/directives/in-view';
 
 interface Category {
   name: string;
   slug: string;
   count: number;
   cover: string;
+  order: number;
 }
 
 @Component({
   selector: 'app-catalog',
-  imports: [RouterLink, Icon, ProductCard, SectionHeading, Spinner],
+  imports: [RouterLink, InView, Icon, ProductCard, SectionHeading, Spinner],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './catalog.html',
   styleUrl: './catalog.scss',
@@ -32,10 +34,15 @@ export class Catalog implements OnInit {
   private readonly route = inject(ActivatedRoute);
   protected readonly pdf = SITE.catalogPdf;
 
-  private readonly products = toSignal<Product[] | null>(inject(PRODUCT_REPOSITORY).getProducts(), { initialValue: null });
-  private readonly categorySlug = toSignal(this.route.queryParamMap.pipe(map((q) => q.get('categoria'))), {
-    initialValue: this.route.snapshot.queryParamMap.get('categoria'),
+  private readonly products = toSignal<Product[] | null>(inject(PRODUCT_REPOSITORY).getProducts(), {
+    initialValue: null,
   });
+  private readonly categorySlug = toSignal(
+    this.route.queryParamMap.pipe(map((q) => q.get('categoria'))),
+    {
+      initialValue: this.route.snapshot.queryParamMap.get('categoria'),
+    },
+  );
 
   protected readonly loading = computed(() => this.products() === null);
 
@@ -49,13 +56,22 @@ export class Catalog implements OnInit {
         existing.count++;
         if (!existing.cover) existing.cover = p.imageUrl;
       } else {
-        map.set(p.category, { name: p.category, slug: generateSlug(p.category), count: 1, cover: p.imageUrl });
+        map.set(p.category, {
+          name: p.category,
+          slug: generateSlug(p.category),
+          count: 1,
+          cover: p.imageUrl,
+          order: p.categoryOrder,
+        });
       }
     }
-    return [...map.values()];
+    // orden definido por el cliente en la pestaña Config del Sheet (empata → orden de aparición)
+    return [...map.values()].sort((a, b) => a.order - b.order);
   });
 
-  protected readonly selectedIndex = computed(() => this.categories().findIndex((c) => c.slug === this.categorySlug()));
+  protected readonly selectedIndex = computed(() =>
+    this.categories().findIndex((c) => c.slug === this.categorySlug()),
+  );
   protected readonly selected = computed(() => this.categories()[this.selectedIndex()] ?? null);
   protected readonly prev = computed(() => this.neighbor(-1));
   protected readonly next = computed(() => this.neighbor(1));
@@ -65,12 +81,13 @@ export class Catalog implements OnInit {
     return cat ? (this.products() ?? []).filter((p) => p.category === cat.name) : [];
   });
 
-  protected readonly cover = (url: string) => optimizeCloudinaryUrl(url, 600, '4:3');
+  protected readonly cover = (url: string) => optimizeCloudinaryUrl(url, 600, '1:1');
 
   ngOnInit(): void {
     this.seo.set({
       title: 'Catálogo de equipamiento médico',
-      description: 'Camas, camillas, monitores, bombas de infusión y más equipamiento médico para alquilar para tu rodaje.',
+      description:
+        'Camas, camillas, monitores, bombas de infusión y más equipamiento médico para alquilar para tu rodaje.',
       path: '/catalogo',
     });
   }

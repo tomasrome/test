@@ -1,20 +1,50 @@
 <footer class="footer">
-  <div class="container grid">
-    <div>
-      <img [src]="site.logo" alt="" width="64" height="64" />
-      <p class="tag">{{ site.tagline }}</p>
+  <div class="container footer__main">
+    <div class="footer__brand">
+      <img [src]="site.logo" [alt]="site.name" width="140" height="140" />
     </div>
-    <nav aria-label="Secundario">
-      <a routerLink="/catalogo">Catálogo</a>
-      <a routerLink="/nosotros">Nosotros</a>
-      <a routerLink="/contacto">Contacto</a>
-      <a routerLink="/carrito">Carrito de consulta</a>
+
+    <nav class="footer__contact" aria-label="Contacto">
+      <a class="item" [href]="waLink" target="_blank" rel="noopener">
+        <span class="icon"><i class="fa-brands fa-whatsapp"></i></span>
+        <span class="text">
+          <!-- <small>WhatsApp</small> -->
+          {{ site.whatsappDisplay }}
+        </span>
+      </a>
+
+      <a class="item" [href]="'mailto:' + site.email">
+        <span class="icon"><app-icon name="mail" [size]="20" /></span>
+        <span class="text">
+          <!-- <small>Email</small> -->
+          {{ site.email }}
+        </span>
+      </a>
+
+      <a class="item" [href]="site.instagram" target="_blank" rel="noopener">
+        <span class="icon"><app-icon name="instagram" [size]="20" /></span>
+        <span class="text">
+          <!-- <small>Instagram</small> -->
+          {{ site.instagramHandle }}
+        </span>
+      </a>
+
+      <a
+        class="item"
+        href="https://maps.app.goo.gl/51dNSJSJMk8SWNka9"
+        target="_blank"
+        rel="noopener"
+      >
+        <span class="icon"><app-icon name="pin" [size]="20" /></span>
+        <span class="text">
+          <!-- <small>Ubicación</small> -->
+          {{ site.address }}
+        </span>
+      </a>
     </nav>
-    <div class="contact">
-      <a [href]="waLink" target="_blank" rel="noopener"><app-icon name="whatsapp" [size]="20" /> {{ site.whatsappDisplay }}</a>
-      <a [href]="'mailto:' + site.email"><app-icon name="mail" [size]="20" /> {{ site.email }}</a>
-      <a [href]="site.instagram" target="_blank" rel="noopener"><app-icon name="instagram" [size]="20" /> {{ site.instagramHandle }}</a>
-    </div>
   </div>
-  <p class="copy">© {{ year }} {{ site.name }}</p>
+
+  <div class="footer__bottom">
+    <p class="copy">© {{ year }} {{ site.name }}. Todos los derechos reservados.</p>
+  </div>
 </footer>

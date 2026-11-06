@@ -19,7 +19,7 @@ export class ProductCard {
   private readonly cart = inject(Cart);
   private readonly toast = inject(ToastService);
   protected readonly added = signal(false);
-  protected readonly img = (url: string) => optimizeCloudinaryUrl(url, 400, '4:3');
+  protected readonly img = (url: string) => optimizeCloudinaryUrl(url, 500, '1:1');
 
   add(): void {
     this.cart.addItem(this.product());

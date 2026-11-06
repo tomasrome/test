@@ -1,0 +1,83 @@
+:host {
+  display: block;
+}
+
+.frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  /* border-block: 2px solid var(--c-gold); */
+}
+.frame.vertical {
+  aspect-ratio: 9 / 16;
+  width: min(100%, calc(88svh * 9 / 16));
+  margin-inline: auto;
+  border-inline: 2px solid var(--c-gold);
+}
+video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+
+/* Portada: botón de play grande sobre el poster */
+.cover {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border: 0;
+  padding: 0;
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.1) 55%);
+}
+.disc {
+  display: grid;
+  place-items: center;
+  width: clamp(72px, 9vw, 120px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(10, 10, 10, 0.4);
+  border: 3px solid #fff;
+  transition:
+    background 0.2s,
+    transform 0.2s,
+    border-color 0.2s;
+}
+.cover:hover .disc,
+.cover:focus-visible .disc {
+  background: var(--c-gold);
+  border-color: var(--c-gold);
+  color: #0a0a0a;
+  transform: scale(1.07);
+}
+.dur {
+  position: absolute;
+  right: clamp(0.8rem, 2vw, 1.8rem);
+  bottom: clamp(0.8rem, 2vw, 1.6rem);
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(10, 10, 10, 0.7);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.msg {
+  position: absolute;
+  left: 50%;
+  bottom: 1.2rem;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0.6rem 1rem;
+  max-width: 90%;
+  text-align: center;
+  background: var(--c-cream);
+  color: var(--c-ink);
+  border-left: 4px solid var(--c-gold);
+  border-radius: var(--radius);
+  font-weight: 600;
+}

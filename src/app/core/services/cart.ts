@@ -45,13 +45,21 @@ export class Cart {
     this.save();
   }
 
-  openDrawer(): void { this.isDrawerOpen.set(true); }
-  closeDrawer(): void { this.isDrawerOpen.set(false); }
-  toggleDrawer(): void { this.isDrawerOpen.update((v) => !v); }
+  openDrawer(): void {
+    this.isDrawerOpen.set(true);
+  }
+  closeDrawer(): void {
+    this.isDrawerOpen.set(false);
+  }
+  toggleDrawer(): void {
+    this.isDrawerOpen.update((v) => !v);
+  }
 
   /** Texto plano de los equipos, para guardar el lead. */
   summary(): string {
-    return this.items().map((i) => `${i.product.name} x${i.quantity}`).join(', ');
+    return this.items()
+      .map((i) => `${i.product.name} x${i.quantity}`)
+      .join(', ');
   }
 
   generateWhatsAppLink(phone: string): string {
@@ -71,9 +79,9 @@ export class Cart {
       ...lines,
       '',
       'Mis datos:',
-      'Nombre y apellido: [Completar]',
-      'Producción / proyecto: [Completar]',
-      'Fechas de rodaje: [Completar]',
+      'Nombre y apellido: ',
+      'Producción / proyecto: ',
+      'Fechas de rodaje: ',
       '',
       'Muchas gracias!',
     ].join('\n');

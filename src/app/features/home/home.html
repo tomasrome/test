@@ -1,6 +1,32 @@
 <section class="hero">
+  <!-- Decoración (huellas, manchas y trazos dorados). Todo aria-hidden. -->
+  <svg width="0" height="0" style="position: absolute" aria-hidden="true" focusable="false">
+    <symbol id="paw" viewBox="0 0 100 100">
+      <ellipse cx="20" cy="44" rx="11" ry="15" transform="rotate(-22 20 44)" />
+      <ellipse cx="39" cy="24" rx="11" ry="15" transform="rotate(-8 39 24)" />
+      <ellipse cx="62" cy="24" rx="11" ry="15" transform="rotate(8 62 24)" />
+      <ellipse cx="81" cy="44" rx="11" ry="15" transform="rotate(22 81 44)" />
+      <path
+        d="M50 46c-16 0-28 14-28 27 0 10 8 14 17 13 4-.5 7-2 11-2s7 1.5 11 2c9 1 17-3 17-13 0-13-12-27-28-27z"
+      />
+    </symbol>
+  </svg>
+  <div class="deco" aria-hidden="true">
+    <span class="blob blob--l"></span>
+    <span class="blob blob--tr"></span>
+    <svg class="paw paw--tl"><use href="#paw" /></svg>
+    <svg class="paw paw--tr"><use href="#paw" /></svg>
+    <svg class="paw paw--bl"><use href="#paw" /></svg>
+    <svg class="swoosh swoosh--l" viewBox="0 0 320 70">
+      <path d="M0 8C70 8 130 14 190 34S270 60 318 62C270 66 190 52 130 32S50 14 0 13Z" />
+    </svg>
+    <svg class="swoosh swoosh--r" viewBox="0 0 180 70">
+      <path d="M180 4C150 14 120 40 80 54S20 66 0 64C22 70 80 66 112 52S160 14 180 8Z" />
+    </svg>
+  </div>
+
   <div class="container hero__grid">
-    <div class="orb">
+    <div class="orb rise">
       <div class="circle">
         @if (playVideo()) {
           <video
@@ -24,28 +50,31 @@
         }
         @if (ready() && !playVideo()) {
           <button type="button" class="play" (click)="start()" aria-label="Reproducir video">
-            <app-icon name="play" [size]="34" />
+            <app-icon name="play" [size]="30" />
           </button>
         }
       </div>
-      <svg class="dash dash--tr" viewBox="0 0 60 56" aria-hidden="true">
+      <svg class="dash" viewBox="0 0 60 56" aria-hidden="true">
         <path d="M10 44L24 10M30 50L48 18M44 54L58 36" />
-      </svg>
-      <svg class="dash dash--bl" viewBox="0 0 60 66" aria-hidden="true">
-        <path d="M4 12l30 8M2 30l26 12M10 46l16 14" />
       </svg>
     </div>
 
     <div class="hero__text">
-      <hr class="gold-line" />
-      <h1>{{ site.name }}</h1>
-      <p class="hero__sub">Equipamiento medico acondicionado para rodaje.</p>
-      <p class="hero__lead">Monitores, camillas y más. Todo lo que necesitás para tu producción.</p>
+      <div class="title">
+        <h1 class="rise" style="--i: 1">{{ site.name }}</h1>
+        <svg class="brush" viewBox="0 0 250 12" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M2 7C40 3 90 2 140 5S210 7 248 4C205 9 150 8 100 10S30 10 2 7Z" />
+        </svg>
+      </div>
+      <p class="hero__sub rise" style="--i: 2">Equipamiento médico para cine y TV.</p>
+      <p class="hero__lead rise" style="--i: 3">
+        Camillas, monitores, mobiliario y más. Todo lo que necesitás para tu producción.
+      </p>
 
       <ul class="feats">
         @for (f of features; track f.label) {
-          <li>
-            <app-icon [name]="f.icon" [size]="38" /><span>{{ f.label }}</span>
+          <li class="rise" [style.--i]="4 + $index">
+            <app-icon [name]="f.icon" [size]="28" /><span>{{ f.label }}</span>
           </li>
         }
       </ul>
@@ -53,44 +82,18 @@
   </div>
 </section>
 
-<section class="team">
-  <div class="container">
-    <!--     <p class="eyebrow">Conocé al equipo</p> -->
-    <h2>Tres mentes, ...</h2>
-
-    <div class="team__grid">
-      @for (m of team; track $index) {
-        <a
-          class="card reveal"
-          appInView
-          [style.--i]="$index"
-          routerLink="/nosotros"
-          [attr.aria-label]="'Conocer más: ' + m.cardTitle"
-        >
-          <div class="bg">
-            @if (m.photo) {
-              <img [src]="m.photo" [alt]="m.cardTitle" loading="lazy" width="420" height="420" />
-            } @else {
-              <img class="bg__logo" [src]="site.logo" alt="" width="160" height="160" />
-            }
-          </div>
-          <div class="cap">
-            <div>
-              <h3>{{ m.cardTitle }}</h3>
-              <p>{{ m.cardText }}</p>
-            </div>
-            <span class="go" aria-hidden="true"><app-icon name="arrow-right" [size]="18" /></span>
-          </div>
-        </a>
-      }
-    </div>
-  </div>
+<section class="reel">
+  <!-- <div class="container">
+    <p class="eyebrow reveal" appInView>{{ promo.eyebrow }}</p>
+    <h2 class="reveal" appInView style="--i: 1">{{ promo.title }}</h2>
+  </div> -->
+  <app-promo-video class="reveal" appInView style="--i: 2" />
 </section>
 
 <section class="prod">
-  <div class="container">
-    <!-- <p class="eyebrow">Producciones</p> -->
-    <h2>Algunas producciones que ya nos eligieron.</h2>
+  <div class="containerp">
+    <!--  <p class="eyebrow reveal" appInView>Producciones</p> -->
+    <h2 class="reveal" appInView style="--i: 1">Algunas producciones que ya nos eligieron.</h2>
   </div>
-  <app-poster-carousel [items]="productions" />
+  <app-poster-carousel class="reveal" appInView style="--i: 2" [items]="productions" />
 </section>

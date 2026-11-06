@@ -1,16 +1,27 @@
 @let p = product();
 <article class="card">
-  <a class="media" [routerLink]="['/catalogo', p.slug]" [attr.aria-label]="'Ver ' + p.name">
-    @if (p.imageUrl) { <img [src]="img(p.imageUrl)" [alt]="p.name" loading="lazy" width="400" height="300" /> }
-    @else { <div class="ph"><app-icon name="clapper" [size]="44" /></div> }
-    @if (p.discount > 0) { <span class="badge badge--promo">{{ p.discount }}% off</span> }
+  <a class="tile" [routerLink]="['/catalogo', p.slug]" [attr.aria-label]="'Ver ' + p.name">
+    @if (p.imageUrl) {
+      <img [src]="img(p.imageUrl)" [alt]="p.name" loading="lazy" width="500" height="500" />
+    } @else {
+      <span class="tile__ph"><app-icon name="clapper" [size]="44" /></span>
+    }
+    @if (p.discount > 0) {
+      <span class="badge">{{ p.discount }}% off</span>
+    }
+    <span class="tile__shade" aria-hidden="true"></span>
+    <div class="tile__caption">
+      <h3 class="tile__title">{{ p.name }}</h3>
+      @if (p.stock === 0) {
+        <span class="stock">Sin stock — se consulta igual</span>
+      }
+    </div>
   </a>
-  <div class="info">
-    <h3><a [routerLink]="['/catalogo', p.slug]">{{ p.name }}</a></h3>
-    <hr class="gold-line" />
-    @if (p.stock === 0) { <p class="stock">Sin stock — se consulta igual</p> }
-    <button type="button" class="add" [class.added]="added()" (click)="add()">
-      @if (added()) { <app-icon name="check" [size]="18" /> Agregado } @else { <app-icon name="plus" [size]="18" /> Agregar a la consulta }
-    </button>
-  </div>
+  <button type="button" class="add" [class.added]="added()" (click)="add()">
+    @if (added()) {
+      <app-icon name="check" [size]="18" /> Agregado
+    } @else {
+      <app-icon name="plus" [size]="18" /> Agregar a la consulta
+    }
+  </button>
 </article>

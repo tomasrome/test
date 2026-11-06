@@ -13,7 +13,7 @@ const REQUEST_TIMEOUT_MS = 8000;
 const RETRY_COUNT = 2;
 const RETRY_DELAY_MS = 1000;
 const ERROR_RETRY_MS = 30_000;
-const STORAGE_KEY = 'gt-products-cache-v1';
+const STORAGE_KEY = 'gt-products-cache-v2';
 const STORAGE_MAX_AGE_MS = 24 * 60 * 60 * 1000;
 
 @Injectable({ providedIn: 'root' })
@@ -67,8 +67,7 @@ export class GoogleSheetsProductAdapter implements ProductRepository {
       category: String(r['categoria'] ?? ''),
       description: String(r['descripcion'] ?? ''),
       imageUrl: String(r['imagen'] ?? ''),
-      stillUrl: String(r['fotograma'] ?? ''),
-      production: String(r['produccion'] ?? ''),
+      categoryOrder: Number.isFinite(Number(r['ordenCategoria'])) && r['ordenCategoria'] !== '' && r['ordenCategoria'] != null ? Number(r['ordenCategoria']) : 999,
       stock: stock !== null && Number.isFinite(stock) ? stock : null,
       discount: Math.max(0, Number(r['descuento']) || 0),
     };

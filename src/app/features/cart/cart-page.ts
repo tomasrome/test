@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, PLATFORM_ID, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+  PLATFORM_ID,
+  inject,
+  signal,
+} from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Cart } from '../../core/services/cart';
@@ -7,12 +15,12 @@ import { Seo } from '../../core/services/seo';
 import { SITE } from '../../core/data/site.config';
 import { optimizeCloudinaryUrl } from '../../core/utils/cloudinary.util';
 import { Icon } from '../../shared/components/icon/icon';
-import { SectionHeading } from '../../shared/components/section-heading/section-heading';
+import { PageHero } from '../../shared/components/page-hero/page-hero';
 import { ToastService } from '../../shared/services/toast.service';
 
 @Component({
   selector: 'app-cart-page',
-  imports: [RouterLink, Icon, SectionHeading],
+  imports: [RouterLink, Icon, PageHero],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './cart-page.html',
   styleUrl: './cart-page.scss',
@@ -29,7 +37,11 @@ export class CartPage implements OnInit, OnDestroy {
   private readonly onResize = () => this.isMobile.set(window.innerWidth <= 700);
 
   ngOnInit(): void {
-    this.seo.set({ title: 'Carrito de consulta', description: 'Armá tu consulta de alquiler y envianosla por WhatsApp.', path: '/carrito' });
+    this.seo.set({
+      title: 'Carrito de consulta',
+      description: 'Armá tu consulta de alquiler y envianosla por WhatsApp.',
+      path: '/carrito',
+    });
     if (this.isBrowser) {
       this.onResize();
       window.addEventListener('resize', this.onResize);

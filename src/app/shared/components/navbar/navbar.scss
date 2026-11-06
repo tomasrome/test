@@ -4,6 +4,7 @@
   top: 0;
   z-index: 100;
 }
+
 .nav {
   height: var(--nav-h);
   display: flex;
@@ -11,25 +12,25 @@
   justify-content: space-between;
   padding-inline: 1.25rem;
   background: var(--c-black);
-  border-bottom: 2px solid var(--c-gold);
+  /*   border-bottom: 2px solid var(--c-gold); */
 }
+
 .brand {
   display: flex;
   align-items: center;
   gap: 0.6rem;
   text-decoration: none;
-  font-family: 'Henny Penny', system-ui;
-  font-style: italic;
-  font-weight: 700;
-  font-size: 1.35rem;
+  font-family: var(--font-brand);
+  font-size: 2rem;
   text-transform: uppercase;
-  letter-spacing: 5px;
+
   img {
     border-radius: 50%;
     height: 56px;
     width: 56px;
   }
 }
+
 .links {
   position: absolute;
   left: 50%;
@@ -37,6 +38,7 @@
   transform: translate(-50%, -50%);
   display: flex;
   gap: 1.8rem;
+
   a {
     text-decoration: none;
     font-family: var(--font-display);
@@ -50,20 +52,24 @@
     transition:
       color 0.2s,
       border-color 0.2s;
+
     &:hover {
       color: var(--c-mustard-light);
     }
+
     &.active {
       color: var(--c-gold);
       border-bottom-color: var(--c-gold);
     }
   }
 }
+
 .actions {
   display: flex;
   align-items: center;
   gap: 0.4rem;
 }
+
 .icon-btn {
   position: relative;
   display: grid;
@@ -72,13 +78,32 @@
   height: 44px;
   background: none;
   border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: none; // quita el subrayado
   color: var(--c-white);
   border-radius: 50%;
-  transition: color 0.2s;
+  transition:
+    color 0.2s,
+    background-color 0.2s;
+
+  i {
+    font-size: 1.4rem;
+    line-height: 1;
+    display: block;
+  }
+
   &:hover {
     color: var(--c-gold);
+    background-color: rgb(255 255 255 / 0.08);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--c-gold);
+    outline-offset: 2px;
   }
 }
+
 .badge {
   position: absolute;
   top: 2px;
@@ -103,6 +128,7 @@
     padding-block: 0.4rem 0;
     row-gap: 0;
   }
+
   .links {
     position: static;
     transform: none;
@@ -112,13 +138,25 @@
     overflow-x: auto;
     white-space: nowrap;
     padding: 0.2rem 0 0.3rem;
+    justify-content: center;
+
     a {
       font-size: 1.1rem;
     }
   }
 }
+
 @media (max-width: 480px) {
   .brand span {
     display: none;
+  }
+
+  .actions {
+    gap: 0.1rem;
+  }
+
+  .icon-btn {
+    width: 40px;
+    height: 40px;
   }
 }

@@ -1,19 +1,26 @@
-import { ChangeDetectionStrategy, Component, OnInit, PLATFORM_ID, afterNextRender, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  PLATFORM_ID,
+  afterNextRender,
+  inject,
+  signal,
+} from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { RouterLink } from '@angular/router';
-import { HERO_VIDEOS, SITE } from '../../core/data/site.config';
-import { TEAM } from '../../core/data/team';
+import { HERO_VIDEOS, MOTION, PROMO_VIDEO, SITE } from '../../core/data/site.config';
 import { PRODUCTIONS } from '../../core/data/productions';
 import { Seo } from '../../core/services/seo';
 import { InView } from '../../shared/directives/in-view';
 import { Icon, IconName } from '../../shared/components/icon/icon';
 import { PosterCarousel } from '../../shared/components/poster-carousel/poster-carousel';
+import { PromoVideo } from '../../shared/components/promo-video/promo-video';
 
 const LAST_VIDEO_KEY = 'gt-last-hero-video';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, InView, Icon, PosterCarousel],
+  imports: [InView, Icon, PosterCarousel, PromoVideo],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './home.html',
   styleUrl: './home.scss',
@@ -23,7 +30,7 @@ export class Home implements OnInit {
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   protected readonly site = SITE;
-  protected readonly team = TEAM;
+  protected readonly promo = PROMO_VIDEO;
   protected readonly productions = PRODUCTIONS;
   protected readonly features: { icon: IconName; label: string }[] = [
     { icon: 'bell-off', label: 'Sin alarmas' },
@@ -44,7 +51,8 @@ export class Home implements OnInit {
   ngOnInit(): void {
     this.seo.set({
       title: 'Rental de equipamiento médico para producciones',
-      description: 'Equipamiento médico acondicionado para rodajes, sin alarma, y asesoría de escenas médicas para guiones.',
+      description:
+        'Equipamiento médico acondicionado para rodajes, sin alarma, y asesoría de escenas médicas para guiones.',
       path: '/',
     });
   }
@@ -56,14 +64,24 @@ export class Home implements OnInit {
 
   private pickVideo(): void {
     if (!this.isBrowser) return;
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
+    const reduced =
+      MOTION.respectReducedMotion && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection
+      ?.saveData;
 
     let last = -1;
-    try { last = Number(localStorage.getItem(LAST_VIDEO_KEY) ?? -1); } catch { /* sin storage */ }
+    try {
+      last = Number(localStorage.getItem(LAST_VIDEO_KEY) ?? -1);
+    } catch {
+      /* sin storage */
+    }
     const options = HERO_VIDEOS.map((_, i) => i).filter((i) => i !== last);
     const next = options[Math.floor(Math.random() * options.length)];
-    try { localStorage.setItem(LAST_VIDEO_KEY, String(next)); } catch { /* sin storage */ }
+    try {
+      localStorage.setItem(LAST_VIDEO_KEY, String(next));
+    } catch {
+      /* sin storage */
+    }
 
     this.hero.set(HERO_VIDEOS[next]);
     this.playVideo.set(!reduced && !saveData);

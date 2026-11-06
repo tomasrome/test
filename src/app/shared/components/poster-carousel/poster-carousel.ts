@@ -12,6 +12,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { MOTION } from '../../../core/data/site.config';
 import { Production } from '../../../core/models/production.model';
 import { optimizeCloudinaryUrl } from '../../../core/utils/cloudinary.util';
 
@@ -27,13 +28,15 @@ import { optimizeCloudinaryUrl } from '../../../core/utils/cloudinary.util';
 })
 export class PosterCarousel implements OnDestroy {
   readonly items = input.required<Production[]>();
-  readonly speed = input(60); // px por segundo
+  readonly speed = input(74); // px por segundo
 
   private readonly viewport = viewChild.required<ElementRef<HTMLElement>>('viewport');
   private readonly rail = viewChild.required<ElementRef<HTMLElement>>('rail');
   private readonly isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
 
   /** En el servidor se renderiza 1 sola copia; las demás se agregan en el browser. */
+  /** true = movimiento reducido: no se mueve solo, se recorre a mano con scroll/arrastre. */
+  protected readonly manual = signal(false);
   protected readonly copies = signal(1);
   protected readonly sets = computed(() => Array.from({ length: this.copies() }, (_, i) => i));
   protected readonly poster = (url: string) => optimizeCloudinaryUrl(url, 400, '2:3');
@@ -44,7 +47,6 @@ export class PosterCarousel implements OnDestroy {
   private raf = 0;
   private paused = false;
   private visible = true;
-  private reduced = false;
   private io?: IntersectionObserver;
   private readonly onResize = () => (this.loopWidth = 0);
 
@@ -68,7 +70,13 @@ export class PosterCarousel implements OnDestroy {
   }
 
   private start(): void {
-    this.reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (
+      MOTION.respectReducedMotion &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
+      this.manual.set(true);
+      return;
+    }
     this.copies.set(2);
     this.io = new IntersectionObserver(([e]) => (this.visible = e.isIntersecting));
     this.io.observe(this.viewport().nativeElement);
@@ -95,7 +103,7 @@ export class PosterCarousel implements OnDestroy {
     if (!this.loopWidth) this.measure();
 
     if (this.loopWidth && this.visible) {
-      if (!this.reduced && !this.paused) this.pos += (this.speed() * dt) / 1000;
+      if (!this.paused) this.pos += (this.speed() * dt) / 1000;
       this.pos = ((this.pos % this.loopWidth) + this.loopWidth) % this.loopWidth;
       this.rail().nativeElement.style.transform = `translate3d(${-this.pos}px,0,0)`;
     }

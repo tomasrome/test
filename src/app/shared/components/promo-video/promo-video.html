@@ -1,0 +1,39 @@
+<div
+  class="frame"
+  #frame
+  [class.vertical]="vertical()"
+  (pointerenter)="onHover(true, $event)"
+  (pointerleave)="onHover(false, $event)"
+>
+  <video
+    #video
+    [src]="src()"
+    [poster]="poster()"
+    [controls]="started()"
+    muted
+    loop
+    playsinline
+    preload="none"
+    [attr.aria-label]="cfg.label"
+    (play)="onPlay()"
+    (pause)="onPause()"
+    (ended)="onEnded()"
+    (error)="onError()"
+  ></video>
+
+  @if (showCover()) {
+    <button
+      type="button"
+      class="cover"
+      (click)="play()"
+      [attr.aria-label]="'Reproducir: ' + cfg.label"
+    >
+      <span class="disc"><app-icon name="play" [size]="42" /></span>
+      <span class="dur">{{ cfg.duration }}</span>
+    </button>
+  }
+
+  @if (failed()) {
+    <p class="msg" role="status">No pudimos cargar el video. Probá de nuevo en un momento.</p>
+  }
+</div>

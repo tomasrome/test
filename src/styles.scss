@@ -1,9 +1,19 @@
+/* Fuente de marca (dafont). El archivo va en public/fonts/YNTKTS.ttf */
+@font-face {
+  font-family: 'YNTKTS';
+  src: url('/fonts/YNTKTS.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --c-mustard: #a68b14;
   --c-gold: #c9a63a;
   --c-mustard-light: #e0c766;
-  --c-slate: #0f1a22;
-  --c-slate-2: #16242e;
+  --c-slate: #1d2024;
+  /*  --c-slate-2: #16242e; */
+  --c-slate-2: #1d2024;
   --c-black: #0a0a0a;
   --c-brown: #3a2a18;
   --c-cream: #f4eedc;
@@ -12,11 +22,15 @@
   --c-ok: #2f8f5b;
 
   --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --font-brand: 'YNTKTS', 'Figtree', system-ui, sans-serif;
   --font-body: 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   --radius: 4px;
   --nav-h: 68px;
   --container: 1180px;
+
+  /* Curva de easing compartida: arranca rápido y desacelera suave */
+  --ease-out-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 *,
@@ -35,7 +49,7 @@ body {
   font-size: 1rem;
   line-height: 1.6;
   color: var(--c-white);
-  background: #0f1315;
+  background: var(--c-slate);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -87,6 +101,11 @@ p {
 .container {
   width: min(100% - 2.5rem, var(--container));
   margin-inline: auto;
+}
+
+.containerp {
+  width: min(100% - 2.5rem, var(--container));
+  margin-left: 5%;
 }
 .section {
   padding-block: clamp(3rem, 8vw, 6rem);
@@ -165,6 +184,106 @@ p {
   }
 }
 
+/* Tile: imagen a pleno con degradé inferior y título abajo a la izquierda (categorías y productos).
+   El degradé es del color de fondo del catálogo; para negro puro cambiar --tile-fade.
+   El degradé NO se anima directamente (los gradientes no se interpolan): se anima su
+   transform/opacity, que sí es continuo y va por GPU. */
+.tile {
+  --tile-fade: 30, 35, 39; /* = --c-slate */
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  overflow: hidden;
+  isolation: isolate; // nuevo
+  clip-path: inset(0 round var(--radius)); // nuevo: recorte limpio de esquinas
+  border-radius: var(--radius);
+  background: var(--c-slate); // antes: var(--c-brown)
+  color: #fff;
+  text-decoration: none;
+  > img,
+  .tile__ph {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  > img {
+    transition: transform 0.8s var(--ease-out-soft);
+  }
+  .tile__ph {
+    display: grid;
+    place-items: center;
+    color: var(--c-gold);
+    opacity: 0.55;
+  }
+  /*  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    pointer-events: none;
+  } */
+}
+.tile__shade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 70%; /* altura máxima (estado hover) */
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(var(--tile-fade), 1) 0%,
+    rgba(var(--tile-fade), 0.9) 30%,
+    rgba(var(--tile-fade), 0) 100%
+  );
+  /* Estado reposo: degradé más corto y suave */
+  transform: scaleY(0.72);
+  transform-origin: bottom;
+  opacity: 0.85;
+  transition:
+    transform 0.5s var(--ease-out-soft),
+    opacity 0.5s var(--ease-out-soft);
+  will-change: transform, opacity;
+}
+.tile:hover .tile__shade,
+.tile:focus-visible .tile__shade {
+  transform: scaleY(1);
+  opacity: 1;
+}
+.tile:hover > img,
+.tile:focus-visible > img {
+  transform: scale(1.04);
+}
+.tile__caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1rem 1.1rem;
+  text-align: left;
+  transition: transform 0.5s var(--ease-out-soft);
+}
+.tile:hover .tile__caption,
+.tile:focus-visible .tile__caption {
+  transform: translateY(-4px);
+}
+.tile__title {
+  margin: 0;
+  font-size: 1.65rem;
+  line-height: 1.05;
+}
+.tile__meta {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--c-mustard-light);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.1rem;
+}
+
 .visually-hidden {
   position: absolute !important;
   width: 1px;
@@ -191,6 +310,21 @@ p {
     opacity: 1;
     transform: none;
   }
+}
+/* Entrada por tiempo (no por scroll): para lo que ya se ve apenas carga la pantalla. */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 90ms);
 }
 
 @media (prefers-reduced-motion: reduce) {

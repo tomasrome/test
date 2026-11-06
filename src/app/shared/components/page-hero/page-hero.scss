@@ -1,0 +1,29 @@
+:host { display: block; }
+.ph { --hg: #e0aa1d; position: relative; overflow: hidden; background: #fdf7ea; color: #1b1612; padding-block: clamp(2rem, 5vw, 3.5rem); }
+.inner { position: relative; z-index: 1; }
+
+h1 { margin: 0; font-family: var(--font-body); font-style: normal; text-transform: none; font-weight: 700; letter-spacing: -0.02em; font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.05; }
+.brush { display: block; width: clamp(130px, 16vw, 200px); height: 12px; margin-top: .5rem; fill: var(--hg); animation: draw .9s ease-out .4s both; }
+.sub { margin: 1rem 0 0; max-width: 52ch; font-family: var(--font-body); font-style: normal; font-size: clamp(1.05rem, 1.6vw, 1.2rem); color: #3d352c; }
+
+/* Entrada al cargar, de abajo hacia arriba (por tiempo, solo CSS: funciona con SSR) */
+@keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes draw { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+.rise { animation: rise .8s cubic-bezier(.2, .7, .2, 1) both; animation-delay: calc(var(--i, 0) * 90ms); }
+
+/* Decoración */
+.deco { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.blob { position: absolute; right: -5%; top: -45%; width: clamp(200px, 28vw, 340px); height: clamp(150px, 20vw, 240px); border-radius: 50%; background: #f6ecd6; }
+.paw { position: absolute; fill: #f3e1b3;
+  &--a { right: 5%; top: 18%; width: clamp(54px, 7vw, 84px); height: clamp(54px, 7vw, 84px); transform: rotate(12deg); }
+  &--b { right: 17%; bottom: 14%; width: clamp(26px, 3.4vw, 40px); height: clamp(26px, 3.4vw, 40px); fill: #f0d38f; transform: rotate(-14deg); } }
+.swoosh { position: absolute; left: 0; bottom: 0; width: clamp(150px, 24vw, 280px); fill: var(--hg); opacity: .9; }
+
+/* Variante oscura */
+.ph.dark { background: var(--c-slate-2); color: #fff; border-bottom: 1px solid rgba(255, 255, 255, .08);
+  .sub { color: rgba(255, 255, 255, .78); }
+  .blob { background: rgba(255, 255, 255, .04); }
+  .paw { fill: rgba(224, 170, 29, .16); &--b { fill: rgba(224, 170, 29, .3); } }
+  .swoosh { opacity: .75; } }
+
+@media (max-width: 700px) { .paw--b, .swoosh { display: none; } }

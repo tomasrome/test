@@ -1,43 +1,61 @@
-<div class="container section">
-  <app-section-heading
-    title="Contacto"
-    [level]="1"
-  /><!-- subtitle="Contanos qué necesitás para tu rodaje." -->
+<app-page-hero title="Contacto" subtitle="Contanos qué necesitás para tu rodaje." />
 
-  <div class="layout">
-    <div class="cards">
-      <a class="card" [href]="waLink" target="_blank" rel="noopener"
-        ><app-icon name="whatsapp" /><span
-          ><strong>WhatsApp</strong>{{ site.whatsappDisplay }}</span
-        ></a
-      >
-      <a class="card" [href]="'mailto:' + site.email"
-        ><app-icon name="mail" /><span><strong>Email</strong>{{ site.email }}</span></a
-      >
-      <a class="card" [href]="site.instagram" target="_blank" rel="noopener"
-        ><app-icon name="instagram" /><span
-          ><strong>Instagram</strong>{{ site.instagramHandle }}</span
-        ></a
-      >
-      <div class="card">
-        <app-icon name="pin" /><span><strong>Dirección</strong>{{ site.address }}</span>
-      </div>
-
-      <!--  <div class="script">
-        <h2>¿Tenés un guión con escenas médicas?</h2>
-        <p>Escribinos y lo revisamos con vos.</p>
-        <a class="btn btn--wa" [href]="scriptLink" target="_blank" rel="noopener"
-          ><app-icon name="whatsapp" [size]="22" /> Consultar por mi guión</a
-        >
-      </div> -->
-    </div>
-
+<section class="contact">
+  <div class="container layout">
+    <!-- Mapa a la izquierda -->
     <iframe
-      class="map"
+      class="map rise"
+      style="--i: 2"
       title="Mapa de El Gato Tuerto"
       [src]="mapUrl"
       loading="lazy"
       referrerpolicy="no-referrer-when-downgrade"
     ></iframe>
+
+    <div class="cards">
+      <a class="card card--wa rise" style="--i: 3" [href]="waLink" target="_blank" rel="noopener">
+        <span class="ic"><app-icon name="whatsapp" /></span
+        ><span class="txt"><strong>WhatsApp</strong>{{ site.whatsappDisplay }}</span>
+      </a>
+      <a class="card card--mail rise" style="--i: 4" [href]="'mailto:' + site.email">
+        <span class="ic"><app-icon name="mail" /></span
+        ><span class="txt"><strong>Email</strong>{{ site.email }}</span>
+      </a>
+      <a
+        class="card card--ig rise"
+        style="--i: 5"
+        [href]="site.instagram"
+        target="_blank"
+        rel="noopener"
+      >
+        <span class="ic"><app-icon name="instagram" /></span
+        ><span class="txt"><strong>Instagram</strong>{{ site.instagramHandle }}</span>
+      </a>
+      <div class="card card--pin rise" style="--i: 6">
+        <span class="ic"><app-icon name="pin" /></span
+        ><span class="txt"><strong>Dirección</strong>{{ site.address }}</span>
+      </div>
+    </div>
   </div>
-</div>
+</section>
+
+<!-- Movida desde Nosotros -->
+<section id="consultoria" class="consulting">
+  <svg class="paw-deco" aria-hidden="true"><use href="#paw-ph" /></svg>
+  <div class="container">
+    <div class="cta reveal" appInView>
+      <div class="cta__text">
+        <p class="eyebrow">Consultoría de escenas</p>
+        <h2>No solo alquilamos equipos: también te ayudamos con la escena.</h2>
+        <p>
+          Al contar con una Licenciada en Artes Audiovisuales, entendemos cómo se cuenta una escena
+          médica en cámara. A diferencia de quienes solo alquilan equipos, podemos asesorar el
+          guión: qué se ve, qué se dice y cómo se hace en la realidad.
+        </p>
+      </div>
+      <a class="btn btn--wa" [href]="scriptLink" target="_blank" rel="noopener"
+        ><app-icon name="whatsapp" [size]="22" /> Consultar por mi guión</a
+      >
+    </div>
+  </div>
+</section>

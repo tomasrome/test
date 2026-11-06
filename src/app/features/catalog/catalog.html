@@ -40,27 +40,41 @@
 
     <div class="grid">
       @for (p of visibleProducts(); track p.id) {
-        <app-product-card [product]="p" />
+        <app-product-card
+          appInView
+          [class.rise]="$index < 4"
+          [class.reveal]="$index >= 4"
+          [style.--i]="$index % 4"
+          [product]="p"
+        />
       }
     </div>
   } @else {
     <app-section-heading title="Catálogo" [level]="1" />
-    <!-- subtitle="Elegí una categoría para ver los equipos disponibles para alquilar." -->
 
     @if (categories().length) {
       <div class="cats">
         @for (c of categories(); track c.slug) {
-          <a class="cat" routerLink="/catalogo" [queryParams]="{ categoria: c.slug }">
-            <div class="cat__media">
-              @if (c.cover) {
-                <img [src]="cover(c.cover)" alt="" loading="lazy" width="600" height="450" />
-              } @else {
-                <app-icon name="clapper" [size]="48" />
-              }
-            </div>
-            <div class="cat__info">
-              <h2>{{ c.name }}</h2>
-              <p class="sub">{{ c.count }} {{ c.count === 1 ? 'equipo' : 'equipos' }}</p>
+          <a
+            class="tile"
+            appInView
+            [class.rise]="$index < 4"
+            [class.reveal]="$index >= 4"
+            [style.--i]="$index % 4"
+            routerLink="/catalogo"
+            [queryParams]="{ categoria: c.slug }"
+          >
+            @if (c.cover) {
+              <img [src]="cover(c.cover)" alt="" loading="lazy" width="600" height="600" />
+            } @else {
+              <span class="tile__ph"><app-icon name="clapper" [size]="48" /></span>
+            }
+            <span class="tile__shade" aria-hidden="true"></span>
+            <div class="tile__caption">
+              <h2 class="tile__title">{{ c.name }}</h2>
+              <!-- <span class="tile__meta"
+                >{{ c.count }} {{ c.count === 1 ? 'equipo' : 'equipos' }}</span
+              > -->
             </div>
           </a>
         }
@@ -71,8 +85,8 @@
       </p>
     }
 
-    <a class="btn btn--ghost dl" [href]="pdf" download>
+    <!--  <a class="btn btn--ghost dl" [href]="pdf" download>
       <app-icon name="download" [size]="20" /> Descargar catálogo
-    </a>
+    </a> -->
   }
 </div>
