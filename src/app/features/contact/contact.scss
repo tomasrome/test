@@ -1,38 +1,196 @@
-:host { display: block; min-height: calc(100vh - var(--nav-h)); background: #fbfaf7; color: #1b1612; --hg: #e0aa1d; }
+:host {
+  display: block;
+  min-height: calc(100vh - var(--nav-h));
+  background: #fbfaf7;
+  color: #1b1612;
+  --hg: #e0aa1d;
+}
 
-.contact { padding-block: clamp(2rem, 5vw, 3.5rem); }
-.layout { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: stretch; }
+.contact {
+  padding-block: clamp(2rem, 5vw, 3.5rem);
+}
+.layout {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: stretch;
+}
 
-.map { width: 100%; min-height: 400px; height: 100%; border: 0; border-radius: 14px; background: #efe6d0; box-shadow: 0 0 0 5px #fbfaf7, 0 0 0 8px var(--hg); }
+.map {
+  width: 100%;
+  min-height: 400px;
+  height: 100%;
+  border: 0;
+  border-radius: 14px;
+  background: #efe6d0;
+  box-shadow:
+    0 0 0 5px #fbfaf7,
+    0 0 0 8px var(--hg);
+}
 
-.cards { display: grid; gap: .9rem; align-content: center; }
-.card { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.2rem; background: #fff; border: 1px solid #eadfc6; border-radius: 14px; text-decoration: none; color: inherit; word-break: break-word; transition: border-color .2s, box-shadow .2s;
-  &:is(a):hover { border-color: var(--c); box-shadow: 0 6px 18px rgba(0, 0, 0, .09); } }
+.cards {
+  display: grid;
+  gap: 0.9rem;
+  align-content: center;
+}
+.card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  background: #fff;
+  border: 1px solid #eadfc6;
+  border-radius: 14px;
+  text-decoration: none;
+  color: inherit;
+  word-break: break-word;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  &:is(a):hover {
+    border-color: var(--c);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.09);
+  }
+}
 /* Color de cada medio de contacto */
-.card--wa   { --c: #1f9d55; --ic: #1f9d55; }
-.card--mail { --c: #2563eb; --ic: #2563eb; }
-.card--ig   { --c: #e1306c; --ic: linear-gradient(45deg, #f9a825, #e1306c 50%, #833ab4); }
-.card--pin  { --c: #d93025; --ic: #d93025; }
-.ic { flex: none; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: var(--ic); color: #fff; }
-.txt { display: block; font-size: 1rem; strong { display: block; font-size: .8rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #6b5a2a; } }
+.card--wa {
+  --c: #1f9d55;
+  --ic: #1f9d55;
+}
+.card--mail {
+  --c: #2563eb;
+  --ic: #2563eb;
+}
+.card--ig {
+  --c: #e1306c;
+  --ic: linear-gradient(45deg, #f9a825, #e1306c 50%, #833ab4);
+}
+.card--pin {
+  --c: #d93025;
+  --ic: #d93025;
+}
+.ic {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--ic);
+  color: #fff;
+}
+
+.ic i {
+  font-size: 22px;
+}
+.txt {
+  display: block;
+  font-size: 1rem;
+  strong {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #6b5a2a;
+  }
+}
 
 /* Consultoría de escenas: franja crema (igual que la cabecera) */
-.consulting { position: relative; overflow: hidden; background: #fdf7ea; border-top: 1px solid #eadfc6; padding-block: clamp(2.5rem, 6vw, 4rem); scroll-margin-top: var(--nav-h); }
-.paw-deco { position: absolute; right: 3%; bottom: -26px; width: clamp(120px, 16vw, 210px); height: clamp(120px, 16vw, 210px); fill: #f3e1b3; transform: rotate(-12deg); pointer-events: none; }
-.cta { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; }
-.eyebrow { display: flex; align-items: center; gap: .8rem; margin: 0 0 .6rem; font-size: .8rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
-  &::after { content: ''; width: 38px; height: 2px; background: var(--hg); } }
-.cta h2 { font-family: var(--font-body); font-style: normal; text-transform: none; font-weight: 700; letter-spacing: -0.015em; font-size: clamp(1.5rem, 2.8vw, 2.1rem); line-height: 1.15; margin: 0 0 .8rem; max-width: 24ch; }
-.cta p:last-child { margin: 0; color: #3d352c; max-width: 60ch; }
+.consulting {
+  position: relative;
+  overflow: hidden;
+  background: #fdf7ea;
+  border-top: 1px solid #eadfc6;
+  padding-block: clamp(2.5rem, 6vw, 4rem);
+  scroll-margin-top: var(--nav-h);
+}
+.paw-deco {
+  position: absolute;
+  right: 3%;
+  bottom: -26px;
+  width: clamp(120px, 16vw, 210px);
+  height: clamp(120px, 16vw, 210px);
+  fill: #f3e1b3;
+  transform: rotate(-12deg);
+  pointer-events: none;
+}
+
+.wp {
+  font-size: 22px;
+}
+
+.cta {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: center;
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0 0 0.6rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  &::after {
+    content: '';
+    width: 38px;
+    height: 2px;
+    background: var(--hg);
+  }
+}
+.cta h2 {
+  font-family: var(--font-body);
+  font-style: normal;
+  text-transform: none;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  font-size: clamp(1.5rem, 2.8vw, 2.1rem);
+  line-height: 1.15;
+  margin: 0 0 0.8rem;
+  max-width: 24ch;
+}
+.cta p:last-child {
+  margin: 0;
+  color: #3d352c;
+  max-width: 60ch;
+}
 
 /* Entrada por tiempo para lo que ya se ve al cargar (la consultoría usa .reveal: aparece al hacer scroll) */
-@keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
-.rise { animation: rise .8s cubic-bezier(.2, .7, .2, 1) both; animation-delay: calc(var(--i, 0) * 90ms); }
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
 
 @media (max-width: 900px) {
-  .layout { grid-template-columns: 1fr; }
-  .cards { order: -1; }          /* en celular: primero los datos de contacto, después el mapa */
-  .map { min-height: 320px; }
-  .cta { grid-template-columns: 1fr; }
-  .cta .btn { justify-self: start; }
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .cards {
+    order: -1;
+  } /* en celular: primero los datos de contacto, después el mapa */
+  .map {
+    min-height: 320px;
+  }
+  .cta {
+    grid-template-columns: 1fr;
+  }
+  .cta .btn {
+    justify-self: start;
+  }
 }

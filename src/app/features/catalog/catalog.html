@@ -51,6 +51,15 @@
     </div>
   } @else {
     <app-section-heading title="Catálogo" [level]="1" />
+    <header class="catalog-intro" appInView [class.rise]="true">
+      <h1 class="catalog-intro__title">Nuestro catálogo</h1>
+      <p class="catalog-intro__description">
+        Explorá nuestras categorías y encontrá el equipamiento que necesitás.
+      </p>
+      <div class="catalog-intro__divider">
+        <span></span>
+      </div>
+    </header>
 
     @if (categories().length) {
       <div class="cats">

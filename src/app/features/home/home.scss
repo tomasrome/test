@@ -59,21 +59,25 @@ h2 {
   --hero-bg: #fdf7ea;
   --deco: #f6ecd6;
   --paw: #f3e1b3;
+  --orb: clamp(600px, 44svh, 600px); /* ← nueva */
   position: relative;
   overflow: hidden;
   background: var(--hero-bg);
-  padding-block: clamp(2.5rem, 5vw, 3.7rem);
-  /* height: 60vh; */
-  /* min-height: 700px; */
+  min-height: calc(100vh - var(--nav-h)); /* ← nueva */
+  min-height: calc(100svh - var(--nav-h)); /* ← nueva */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* ← nueva */
+  padding-block: clamp(1.5rem, 3.2vw, 2.25rem);
 }
 .hero .container {
-  width: min(100% - 2.5rem, 62vw);
+  width: min(100% - 2.5rem, calc(var(--orb) + 580px));
 }
 .hero__grid {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(240px, 500px) 1fr;
+  grid-template-columns: minmax(240px, var(--orb)) 1fr;
   gap: clamp(2rem, 6vw, 5rem);
   align-items: center;
   min-height: 500px;
@@ -85,6 +89,7 @@ h2 {
   width: 500px;
   aspect-ratio: 1;
   justify-self: center;
+  width: min(100%, var(--orb));
 }
 .circle {
   position: relative;
