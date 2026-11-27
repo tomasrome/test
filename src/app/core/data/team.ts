@@ -17,12 +17,12 @@ export const TEAM: TeamMember[] = [
     name: 'Pablo Atena',
     role: 'Técnico',
     bio: 'Acondiciona, revisa y deja cada equipo listo para filmar.',
-    photo: '/images/medica.jpg',
+    photo: '/images/tecnico.webp',
   },
   {
     name: 'Yasmin Atena',
     role: 'Médica',
     bio: 'Asegura que lo que se muestra en pantalla sea médicamente verosímil.',
-    photo: '/images/medica.jpg',
+    photo: '/images/medica.webp',
   },
 ];
